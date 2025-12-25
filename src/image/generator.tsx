@@ -16,12 +16,7 @@ export interface GeneratedImage {
 export async function generateImage(stats: CodexStats): Promise<GeneratedImage> {
   await initWasm(Bun.file(resvgWasm).arrayBuffer());
 
-  const logoDataUrl = await loadLogoDataUrl([
-    "../../assets/images/codex-logo.png",
-    "../../assets/images/codex-logo.webp",
-    "../../assets/images/codex-logo.svg",
-  ]);
-  const svg = await satori(<WrappedTemplate stats={stats} logoDataUrl={logoDataUrl} />, {
+  const svg = await satori(<WrappedTemplate stats={stats} />, {
     width: layout.canvas.width,
     height: layout.canvas.height,
     fonts: await loadFonts(),
@@ -38,20 +33,4 @@ export async function generateImage(stats: CodexStats): Promise<GeneratedImage> 
   });
 
   return { fullSize, displaySize };
-}
-
-async function loadLogoDataUrl(relativePath: string | string[]): Promise<string | null> {
-  const paths = Array.isArray(relativePath) ? relativePath : [relativePath];
-  for (const candidate of paths) {
-    const file = Bun.file(new URL(candidate, import.meta.url));
-    if (!(await file.exists())) {
-      continue;
-    }
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const ext = candidate.split(".").pop()?.toLowerCase();
-    const mime =
-      ext === "svg" ? "image/svg+xml" : ext === "webp" ? "image/webp" : "image/png";
-    return `data:${mime};base64,${buffer.toString("base64")}`;
-  }
-  return null;
 }

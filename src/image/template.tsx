@@ -2,8 +2,11 @@ import type { CodexStats, WeekdayActivity } from "../types";
 import { formatNumberFull, formatCostFull, formatDate } from "../utils/format";
 import { ActivityHeatmap } from "./heatmap";
 import { colors, typography, spacing, layout, components } from "./design-tokens";
+import logoBase64 from "../../assets/images/codex-logo.base64.txt" with { type: "text" };
 
-export function WrappedTemplate({ stats, logoDataUrl }: { stats: CodexStats; logoDataUrl?: string | null }) {
+const CODEX_LOGO_DATA_URL = `data:image/png;base64,${logoBase64.trim()}`;
+
+export function WrappedTemplate({ stats }: { stats: CodexStats }) {
   return (
     <div
       style={{
@@ -46,7 +49,7 @@ export function WrappedTemplate({ stats, logoDataUrl }: { stats: CodexStats; log
           borderRadius: layout.radius.full,
         }}
       />
-      <Header year={stats.year} logoDataUrl={logoDataUrl} />
+      <Header year={stats.year} />
 
       <div style={{ marginTop: spacing[8], display: "flex", flexDirection: "row", gap: spacing[16], alignItems: "flex-start" }}>
         <HeroStatItem
@@ -112,7 +115,7 @@ export function WrappedTemplate({ stats, logoDataUrl }: { stats: CodexStats; log
   );
 }
 
-function Header({ year, logoDataUrl }: { year: number; logoDataUrl?: string | null }) {
+function Header({ year }: { year: number }) {
   return (
     <div
       style={{
@@ -130,15 +133,13 @@ function Header({ year, logoDataUrl }: { year: number; logoDataUrl?: string | nu
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: spacing[4] }}>
-          {logoDataUrl && (
-            <img
-              src={logoDataUrl}
-              height={72}
-              style={{
-                objectFit: "contain",
-              }}
-            />
-          )}
+          <img
+            src={CODEX_LOGO_DATA_URL}
+            height={72}
+            style={{
+              objectFit: "contain",
+            }}
+          />
           <span
             style={{
               fontSize: typography.size["6xl"],
