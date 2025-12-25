@@ -164,14 +164,14 @@ export const layout = {
   // Canvas dimensions
   canvas: {
     width: 1500,
-    height: 1300,
+    height: 1400,
   },
 
   // Container padding
   padding: {
     horizontal: 64, // 8x base unit
     top: 64, // 8x
-    bottom: 0,
+    bottom: 8, // 1x
   },
 
   // Content area (canvas minus padding)
