@@ -170,8 +170,8 @@ export const layout = {
   // Container padding
   padding: {
     horizontal: 64, // 8x base unit
-    top: 80, // 10x
-    bottom: 64, // 8x
+    top: 64, // 8x
+    bottom: 16, // 2x
   },
 
   // Content area (canvas minus padding)
