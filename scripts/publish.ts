@@ -105,6 +105,9 @@ for (const [name] of Object.entries(binaries)) {
     await $`chmod -R 755 .`.cwd(targetPath);
   }
 
+  await $`mkdir -p ${path.join(targetPath, "assets")}`;
+  await $`cp -r assets/images ${path.join(targetPath, "assets/")}`;
+
   if (dryRun) {
     await $`npm publish --access public --dry-run --tag dry-run`.cwd(targetPath);
     console.log(`✅ Would publish ${name}`);
