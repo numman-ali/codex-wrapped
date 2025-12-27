@@ -625,7 +625,7 @@ function Footer() {
           letterSpacing: typography.letterSpacing.normal,
         }}
       >
-        openai.com/codex
+        npx codex-wrapped
       </span>
     </div>
   );
